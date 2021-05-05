@@ -5,16 +5,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseVo;
 
 public interface CourseEvaluationManagementService {
 	
-	public List<MovieCategoryVo> getCategory();
+	public List<CourseCategoryVo> getCategory();
 	
-	public boolean addMovie(MovieVo vo, HttpServletRequest request) throws Exception;
+	public boolean addMovie(CourseVo courseVo, HttpServletRequest request) throws Exception;
 	
-	public MovieVo getMovieDetail(int mv_idx);
+	public CourseVo getMovieDetail(int courseIdx);
 
 	public List<Map<String, Object>> getMovie();
 }

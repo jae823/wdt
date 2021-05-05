@@ -1,5 +1,8 @@
 package co.kr.wdt.security;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +21,9 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+		
+		Map<String, Object> userVo = new HashMap<String, Object>();
+		
 		if(!supportsParameter(parameter)) {
 			return WebArgumentResolver.UNRESOLVED;	// 여기가 아닐때까지 다음 Resolver 호출
 		}
@@ -27,7 +33,16 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 		if(session == null) {
 			return null;
 		}
-		return session.getAttribute("authUser");
+		
+		userVo.put("userNo", session.getAttribute("no"));
+		userVo.put("userId", session.getAttribute("userId"));
+		userVo.put("userNm", session.getAttribute("userNm"));
+		userVo.put("userMajor", session.getAttribute("userMajor"));
+		userVo.put("userSchool", session.getAttribute("userSchool"));
+		userVo.put("userLevel", session.getAttribute("userLevel"));
+		userVo.put("userPw", session.getAttribute("userPw"));
+		
+		return userVo;
 	}
 	
 	@Override

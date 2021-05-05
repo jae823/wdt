@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.kr.wdt.courseevaluationboard.service.CourseEvaluationBoardService;
-import co.kr.wdt.courseevaluationboard.vo.BoardVo;
+import co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo;
 import co.kr.wdt.courseevaluationmain.service.CourseEvaluationMainService;
 import co.kr.wdt.security.Auth;
 import co.kr.wdt.security.AuthUser;
@@ -26,32 +26,32 @@ public class CourseEvaluationBoardController {
 	@Autowired
 	private CourseEvaluationBoardService courseEvaluationBoardService;
 	@Autowired
-	private CourseEvaluationMainService evaluationCourseMainService;
+	private CourseEvaluationMainService courseEvaluationMainService;
 	
 	
 	// 게시판 글 목록 가져오기
 	@RequestMapping(value="/list.do")
-	public String getList(Model model, BoardVo boardVo, 
+	public String getList(Model model, CourseEvaluationBoardVo courseEvaluationBoardVo, 
 			@RequestParam(defaultValue = "1") int nowPage, 
 			@RequestParam(defaultValue = "") String search,
-			@RequestParam(defaultValue = "") String movieName) {
+			@RequestParam(defaultValue = "") String courseName) {
 		
 		Map<String, Object> result = new HashMap<String, Object>(); 
 		
-		if (!movieName.equals("")) {
-			boardVo.setMovieName(movieName);
-			courseEvaluationBoardService.updateMovieHit_Cnt(movieName);
+		if (!courseName.equals("")) {
+			courseEvaluationBoardVo.setCourseName(courseName);
+			courseEvaluationBoardService.updateMovieHit_Cnt(courseName);
 		}
 		
 		if (search.equals("")) {
-			result = courseEvaluationBoardService.getBoardList(boardVo, nowPage);	
+			result = courseEvaluationBoardService.getBoardList(courseEvaluationBoardVo, nowPage);	
 		} else {
-			result = courseEvaluationBoardService.getSearchList(boardVo, nowPage, search);
+			result = courseEvaluationBoardService.getSearchList(courseEvaluationBoardVo, nowPage, search);
 			model.addAttribute("search", search);
 		}
 		
-		model.addAttribute("categoryList", evaluationCourseMainService.getMovieCategoryList());
-		model.addAttribute("movieName", movieName);
+		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
+		model.addAttribute("movieName", courseName);
 		model.addAttribute("list", result.get("list"));
 		model.addAttribute("pageVo", result.get("pageVo"));
 		return "courseevaluationboard/courseevaluationboardlist";
@@ -60,9 +60,9 @@ public class CourseEvaluationBoardController {
 	// 게시판 글 상세
 	@RequestMapping(value="view/{idx}.do")
 	public String view(Model model, @PathVariable("idx") int idx) {
-		BoardVo boardVo = courseEvaluationBoardService.getDetail(idx);
-		model.addAttribute("categoryList", evaluationCourseMainService.getMovieCategoryList());
-		model.addAttribute("boardVo", boardVo);
+		CourseEvaluationBoardVo courseEvaluationBoardVo = courseEvaluationBoardService.getDetail(idx);
+		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
+		model.addAttribute("courseEvaluationBoardVo", courseEvaluationBoardVo);
 		return "courseevaluationboard/courseevaluationboardview";
 	}
 	
@@ -71,7 +71,7 @@ public class CourseEvaluationBoardController {
 	@Auth
 	@RequestMapping(value="/write/{movieName}.do", method=RequestMethod.GET)
 	public String writeForm(Model model, @PathVariable("movieName") String movieName) {
-		model.addAttribute("categoryList", evaluationCourseMainService.getMovieCategoryList());
+		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
 		model.addAttribute("movieName", movieName);
 		return "courseevaluationboard/courseevaluationboardwrite";
 	}
@@ -79,15 +79,15 @@ public class CourseEvaluationBoardController {
 	// 게시판 글쓰기 insert
 	@Auth
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
-	public String write(@AuthUser UserVo userVo ,BoardVo boardVo,RedirectAttributes redirectAttributes) {
+	public String write(@AuthUser UserVo userVo ,CourseEvaluationBoardVo courseEvaluationBoardVo, RedirectAttributes redirectAttributes) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("userVo", userVo);
-		param.put("boardVo", boardVo);
+		param.put("courseEvaluationBoardVo", courseEvaluationBoardVo);
 		
 		courseEvaluationBoardService.write(param);
 		
-		if(boardVo.getMovieName() != null) {
-			redirectAttributes.addAttribute("movieName", boardVo.getMovieName());	
+		if(courseEvaluationBoardVo.getCourseName() != null) {
+			redirectAttributes.addAttribute("movieName", courseEvaluationBoardVo.getCourseName());	
 		}
 		return "redirect:/courseEvaluationBoard/list.do";
 	}
@@ -96,17 +96,17 @@ public class CourseEvaluationBoardController {
 	@Auth
 	@RequestMapping(value="/update/{idx}.do", method=RequestMethod.GET)
 	public String updateForm(@AuthUser UserVo userVo, Model model, @PathVariable("idx") int idx) {
-		BoardVo boardVo = courseEvaluationBoardService.getDetail(idx);
-		model.addAttribute("categoryList", evaluationCourseMainService.getMovieCategoryList());
-		model.addAttribute(boardVo);
+		CourseEvaluationBoardVo courseEvaluationBoardVo = courseEvaluationBoardService.getDetail(idx);
+		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
+		model.addAttribute(courseEvaluationBoardVo);
 		return "/courseevaluationboard/courseevaluationboardupdate";
 	}
 	
 	// 게시판 글 update
 	@Auth
 	@RequestMapping(value="/update/{idx}.do", method=RequestMethod.POST)
-	public String update(@AuthUser UserVo userVo, BoardVo boardVo, @PathVariable("idx") int idx) {
-		courseEvaluationBoardService.update(boardVo);
+	public String update(@AuthUser UserVo userVo, CourseEvaluationBoardVo courseEvaluationBoardVo, @PathVariable("idx") int idx) {
+		courseEvaluationBoardService.update(courseEvaluationBoardVo);
 		return "redirect:/courseEvaluationBoard/list.do";
 	}
 	

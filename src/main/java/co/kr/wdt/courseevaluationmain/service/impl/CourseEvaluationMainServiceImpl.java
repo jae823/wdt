@@ -13,17 +13,17 @@ import co.kr.wdt.courseevaluationmain.service.CourseEvaluationMainService;
 public class CourseEvaluationMainServiceImpl implements CourseEvaluationMainService {
 	
 	@Autowired
-	private CourseEvaluationMainDao evaluationCourseMainDao;
+	private CourseEvaluationMainDao courseEvaluationMainDao;
 	
 	public List<Map<String, Object>> getTop8() {
-		return evaluationCourseMainDao.getTop8();
+		return courseEvaluationMainDao.getTop8();
 	}
 	
 	public List<Map<String, Object>> getSelectCategoryMovies(String cateCode) {
-		return evaluationCourseMainDao.getSelectCategoryMovies(cateCode);
+		return courseEvaluationMainDao.getSelectCategoryMovies(cateCode);
 	}
 
 	public List<Map<String, Object>> getMovieCategoryList() {
-		return evaluationCourseMainDao.getMovieCategoryList();
+		return courseEvaluationMainDao.getMovieCategoryList();
 	}
 }

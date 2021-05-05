@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.wdt.courseevaluationmain.service.CourseEvaluationMainService;
 import co.kr.wdt.courseevaluationmanagement.service.CourseEvaluationManagementService;
 
-@Controller("/evaluationCourseMain")
+@Controller("/courseEvaluationMain")
 public class CourseEvaluationMainController {
 	
 	@Autowired

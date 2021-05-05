@@ -3,20 +3,18 @@ package co.kr.wdt.courseevaluationmanagement.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.kr.wdt.common.dao.CommonSqlDao2;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseVo;
 
 @Repository
 public class CourseEvaluationManagementDao extends CommonSqlDao2 {
 	
-	private static String PREFIX = "movie.";
+	private static String PREFIX = "courseEvaluationManagement.";
 
-	public List<MovieCategoryVo> getCategory() {
+	public List<CourseCategoryVo> getCategory() {
 		return selectList(PREFIX+ "getCategory");
 	}
 	
@@ -24,12 +22,12 @@ public class CourseEvaluationManagementDao extends CommonSqlDao2 {
 		return selectList(PREFIX+ "getMovie");
 	}
 
-	public boolean addMovie(MovieVo vo) {
-		return (int)insert(PREFIX + "addMovie", vo) == 1;
+	public boolean addMovie(CourseVo courseVo) {
+		return (int)insert(PREFIX + "addMovie", courseVo) == 1;
 	}
 	
-	public MovieVo findMovieOne(int mv_idx) {
-		return (MovieVo)selectOne(PREFIX + "findMovieOne", mv_idx);
+	public CourseVo findMovieOne(int courseIdx) {
+		return (CourseVo)selectOne(PREFIX + "findMovieOne", courseIdx);
 	}
 
 	public void insertFile(Map<String, Object> map) {

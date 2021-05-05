@@ -12,7 +12,7 @@ import co.kr.wdt.common.dao.CommonSqlDao2;
 @Repository
 public class CourseEvaluationMainDao extends CommonSqlDao2 {
 	
-	private static String PREFIX = "main.";
+	private static String PREFIX = "courseEvaluationMain.";
 	
 	public List<Map<String, Object>> getTop8() {
 		return selectList(PREFIX + "top9");

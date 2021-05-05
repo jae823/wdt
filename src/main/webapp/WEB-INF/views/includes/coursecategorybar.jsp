@@ -10,7 +10,7 @@
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
   	<c:forEach items="${categoryList }" var="category">
-    	<a href="/evaluationCourseMain/${category.cateCode }.do" class="w3-bar-item w3-button">${category.cateName }</a>
+    	<a href="/courseEvaluationMain/${category.cateCode }.do" class="w3-bar-item w3-button">${category.cateName }</a>
     </c:forEach>
   </div>
 </nav>

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.kr.wdt.courseevaluationmain.service.CourseEvaluationMainService;
 import co.kr.wdt.courseevaluationmanagement.dto.CategoryResult;
 import co.kr.wdt.courseevaluationmanagement.service.CourseEvaluationManagementService;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseVo;
 
 @Controller
 @RequestMapping("/courseEvaluationManagement")
@@ -42,8 +42,8 @@ public class CourseEvaluationManagementController {
 	
 	//영화등록
 	@RequestMapping(value="/addCourse.do", method=RequestMethod.POST)
-	public String addMovie(MovieVo vo, HttpServletRequest request) throws Exception {
-		courseEvaluationManagementService.addMovie(vo, request);
+	public String addMovie(CourseVo courseVo, HttpServletRequest request) throws Exception {
+		courseEvaluationManagementService.addMovie(courseVo, request);
 		return "redirect:/courseEvaluationManagement/getCourseList.do";			
 	}
 
@@ -60,9 +60,9 @@ public class CourseEvaluationManagementController {
 	// 등록영화 상세 조회
 	@RequestMapping(value = "/courseViewDetail/{mv_idx}.do")
 	public String view(Model model, @PathVariable("mv_idx") int mv_idx) throws Exception {
-		MovieVo movieVo = courseEvaluationManagementService.getMovieDetail(mv_idx);
+		CourseVo courseVo = courseEvaluationManagementService.getMovieDetail(mv_idx);
 		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
-		model.addAttribute("movieVo", movieVo);
+		model.addAttribute("courseVo", courseVo);
 		
 		return "courseevaluationmanagement/getcourse";
 	}
@@ -70,7 +70,7 @@ public class CourseEvaluationManagementController {
 	@ResponseBody
 	@RequestMapping(value="/courseCategory.do")
 	public CategoryResult getCategory() {
-		List<MovieCategoryVo> category = courseEvaluationManagementService.getCategory();
+		List<CourseCategoryVo> category = courseEvaluationManagementService.getCategory();
 		return CategoryResult.success(category);
 	}
 }

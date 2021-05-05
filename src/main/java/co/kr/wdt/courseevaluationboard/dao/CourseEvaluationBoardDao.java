@@ -3,19 +3,18 @@ package co.kr.wdt.courseevaluationboard.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.kr.wdt.common.dao.CommonSqlDao2;
-import co.kr.wdt.courseevaluationboard.vo.BoardVo;
+import co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo;
 
 @Repository
 public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 
-	private static String PRIFIX = "board.";
+	private static String PRIFIX = "courseEvaluationBoard.";
 	
-	public List<BoardVo> findAll(Map<String, Object> param) {
+	public List<CourseEvaluationBoardVo> findAll(Map<String, Object> param) {
+		System.out.println(selectList(PRIFIX + "findAll", param));
 		return selectList(PRIFIX + "findAll", param);
 	}
 
@@ -27,11 +26,11 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 		return (int) selectOne(PRIFIX + "findAll_totalCount", param);
 	}
 	
-	public BoardVo findOne(int idx) {
-		return (BoardVo) selectOne(PRIFIX + "findOne", idx);
+	public CourseEvaluationBoardVo findOne(int idx) {
+		return (CourseEvaluationBoardVo) selectOne(PRIFIX + "findOne", idx);
 	}
 	
-	public List<BoardVo> search(Map<String, Object> param) {
+	public List<CourseEvaluationBoardVo> search(Map<String, Object> param) {
 		return selectList(PRIFIX + "board.search", param);
 	}
 	
@@ -51,8 +50,8 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 		return (int) update(PRIFIX + "delete", mv_Idx);
 	}
 	
-	public int update(BoardVo boardVo) {
-		return (int) update(PRIFIX + "update", boardVo);
+	public int update(CourseEvaluationBoardVo courseEvaluationBoradVo) {
+		return (int) update(PRIFIX + "update", courseEvaluationBoradVo);
 	}
 
 

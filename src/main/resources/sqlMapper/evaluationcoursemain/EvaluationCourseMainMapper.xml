@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="main">
+<mapper namespace="evaluationCourseMain">
 	<select id="top9" resultType="paramMap" >
 		<![CDATA[
 			SELECT
-				mvName,
-				mvPrice,
-				stored_File_Name
+				COURSE_NAME,
+				PARTICI_NUM,
+				STORED_FILE_NAME
 			FROM
-				movie m
+				course c
 				LEFT OUTER JOIN
-			    	mv_file mf 
-			    ON m.mv_Idx = mf.mv_Idx
-			ORDER BY hit_Cnt DESC
+			    	course_file cf 
+			    ON m.COURSE_IDX = cf.COURSE_IDX
+			ORDER BY HIT_CNT DESC
 			LIMIT 9
 		]]>
 	</select>
@@ -22,16 +22,16 @@
 	<select id="getSelectCategoryMovies" parameterType="String" resultType="paramMap" >
 		<![CDATA[
 			SELECT
-				mvName,
-				mvPrice,
-				stored_File_Name
+				COURSE_NAME,
+				PARTICI_NUM,
+				STORED_FILE_NAME
 			FROM
-				movie m
+				course c
 				LEFT OUTER JOIN
-			    	mv_file mf 
-			    ON m.mv_Idx = mf.mv_Idx
-			WHERE m.mvcateCode = #{cateCode}  
-			ORDER BY hit_Cnt DESC
+			    	course_file cf
+			    ON c.COURSE_IDX = cf.COURSE_IDX
+			WHERE c.COURSE_CODE = #{courseCode}  
+			ORDER BY HIT_CNT DESC
 		]]>
 	</select>
 	
@@ -39,16 +39,13 @@
 	<select id="getMovieCategoryList" resultType="paramMap" >
 		<![CDATA[
 			SELECT
-				cateName,
-				cateCode
+				COURSE_CODE,
+				COURSE_CATE_NAME,
 			FROM
-				movie_category
+				course_category
 			WHERE
-				cateCode != "100";
+				COURSE_CODE != "100";
 		]]>
 	</select>
-	
-
-	
 	
 </mapper>

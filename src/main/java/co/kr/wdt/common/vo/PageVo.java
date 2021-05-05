@@ -1,4 +1,4 @@
-package co.kr.wdt.courseevaluationboard.vo;
+package co.kr.wdt.common.vo;
 
 public class PageVo {
 	private int nowPage;

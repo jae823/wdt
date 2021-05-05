@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import co.kr.wdt.courseevaluationmanagement.dao.CourseEvaluationManagementDao;
 import co.kr.wdt.courseevaluationmanagement.service.CourseEvaluationManagementService;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo;
-import co.kr.wdt.courseevaluationmanagement.vo.MovieVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo;
+import co.kr.wdt.courseevaluationmanagement.vo.CourseVo;
 import co.kr.wdt.utils.FileUtils;
 
 @Service
@@ -25,14 +25,14 @@ public class CourseEvaluationManagementServiceImpl implements CourseEvaluationMa
 	@Resource(name="fileUtils") 
 	private FileUtils fileUtils;
 	
-	public List<MovieCategoryVo> getCategory() {
+	public List<CourseCategoryVo> getCategory() {
 		return courseEvaluationManagementDao.getCategory();
 	}
 
-	public boolean addMovie(MovieVo vo, HttpServletRequest request) throws Exception {
-		Boolean result = courseEvaluationManagementDao.addMovie(vo); 
+	public boolean addMovie(CourseVo courseVo, HttpServletRequest request) throws Exception {
+		Boolean result = courseEvaluationManagementDao.addMovie(courseVo); 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("IDX", String.valueOf(vo.getMv_Idx()));
+		map.put("IDX", String.valueOf(courseVo.getCourseIdx()));
 		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(map, request);
 		for(int i=0, size=list.size(); i<size; i++){ 
 			courseEvaluationManagementDao.insertFile(list.get(i)); 
@@ -41,8 +41,8 @@ public class CourseEvaluationManagementServiceImpl implements CourseEvaluationMa
 		return result;
 	}
 	
-	public MovieVo getMovieDetail(int mv_idx) {
-		return courseEvaluationManagementDao.findMovieOne(mv_idx);
+	public CourseVo getMovieDetail(int courseIdx) {
+		return courseEvaluationManagementDao.findMovieOne(courseIdx);
 	}
 
 	public List<Map<String, Object>> getMovie() {
