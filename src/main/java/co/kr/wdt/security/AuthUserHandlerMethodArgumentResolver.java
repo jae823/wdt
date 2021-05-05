@@ -22,7 +22,7 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
-		Map<String, Object> userVo = new HashMap<String, Object>();
+		UserVo userVo = new UserVo();
 		
 		if(!supportsParameter(parameter)) {
 			return WebArgumentResolver.UNRESOLVED;	// 여기가 아닐때까지 다음 Resolver 호출
@@ -34,13 +34,22 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 			return null;
 		}
 		
-		userVo.put("userNo", session.getAttribute("no"));
-		userVo.put("userId", session.getAttribute("userId"));
-		userVo.put("userNm", session.getAttribute("userNm"));
-		userVo.put("userMajor", session.getAttribute("userMajor"));
-		userVo.put("userSchool", session.getAttribute("userSchool"));
-		userVo.put("userLevel", session.getAttribute("userLevel"));
-		userVo.put("userPw", session.getAttribute("userPw"));
+		System.out.println(session.getAttribute("userNo"));
+		System.out.println(session.getAttribute("userId"));
+		System.out.println(session.getAttribute("userNm"));
+		System.out.println(session.getAttribute("userMajor"));
+		System.out.println(session.getAttribute("userSchool"));
+		System.out.println(session.getAttribute("userLevel"));
+		System.out.println(session.getAttribute("userPw"));
+		
+		userVo.setNo((int)session.getAttribute("userNo"));
+		userVo.setInputId((int)session.getAttribute("userId"));
+		userVo.setInputName((String)session.getAttribute("userNm"));
+		userVo.setInputMajor((String)session.getAttribute("userMajor"));
+		userVo.setInputSchool((String)session.getAttribute("userSchool"));
+		userVo.setLevel((String)session.getAttribute("userLevel"));
+		userVo.setUserPw((String)session.getAttribute("userPw"));
+		
 		
 		return userVo;
 	}
