@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie">
+
+	<select id="getCategory" resultType="co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo">
+		<![CDATA[
+			SELECT
+				cateName,
+				cateCode,
+				cateCodeRef
+			FROM
+				movie_category	
+		]]>
+	</select>
+	
+	
+	<insert id="addMovie" parameterType="co.kr.wdt.courseevaluationmanagement.vo.MovieCategoryVo" useGeneratedKeys="true" keyProperty="mv_Idx">
+		<![CDATA[
+			INSERT INTO 
+				movie (
+					mvName,
+					mvCateCode,
+					mvPrice,
+					mvAvailSeat,
+					mvDes,
+					mvDate
+				)
+			VALUES
+				(#{mvName}, #{mvCateCode}, #{mvPrice}, #{mvAvailSeat}, #{mvDes}, now())
+			
+		]]>
+		<selectKey keyProperty="mv_Idx" resultType="_int" order="AFTER"> 
+ 			SELECT last_insert_id() FROM DUAL 
+ 		</selectKey>
+	</insert>
+	
+	<select id="getMovie" resultType="paramMap">
+		<![CDATA[
+			 SELECT
+				m.mv_Idx,
+				mvName,
+				cateName,
+				m.mvCateCode,
+				mvPrice,
+				mvAvailSeat,
+				mvDes,
+				mvDate,
+				original_File_Name,
+				stored_File_Name
+ 		     FROM
+ 		     	movie m
+ 		     LEFT OUTER JOIN
+ 		     	mv_file mf 
+ 		     ON 
+ 		     	m.mv_Idx = mf.mv_Idx
+ 		     LEFT OUTER JOIN
+ 		     	movie_category mc
+ 		     ON m.mvCateCode = mc.CateCode
+ 		     	
+		]]>
+	</select>
+	
+	<select id="findMovieOne" resultType="co.kr.wdt.courseevaluationmanagement.vo.MovieVo">
+		<![CDATA[
+			 SELECT
+				m.mv_Idx,
+				m.mvName,
+				mc.cateName,
+				m.mvCateCode,
+				m.mvPrice,
+				m.mvAvailSeat,
+				m.mvDes,
+				m.mvDate,
+				mf.stored_File_Name
+ 		     FROM
+ 		     	movie m
+ 		     LEFT OUTER JOIN
+ 		     	movie_category mc
+ 		     ON 
+ 		     	m.mvCateCode = mc.CateCode
+ 		     LEFT OUTER JOIN
+ 		     	mv_file mf
+ 		     ON 
+ 		     	m.mv_Idx = mf.mv_Idx 		     
+			 WHERE
+			 	m.mv_Idx = #{mv_Idx} 
+		]]>
+	</select>
+	
+	
+	<insert id="insertFile" parameterType="paramMap">
+		<![CDATA[
+			INSERT INTO 
+				mv_file ( 
+					mv_Idx, 
+					movieName,
+					original_File_Name, 
+					stored_File_Name, 
+					file_Size, 
+					crea_Id 
+					)
+			VALUES ( 
+			 	#{mv_Idx}, 
+			 	#{movieName},
+			 	#{original_File_Name}, 
+			 	#{stored_File_Name}, 
+			 	#{file_Size}, 
+			 	'Admin' 
+			 	)
+		]]>
+	</insert>
+	
+</mapper>

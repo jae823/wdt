@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main">
+	<select id="top9" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				mvName,
+				mvPrice,
+				stored_File_Name
+			FROM
+				movie m
+				LEFT OUTER JOIN
+			    	mv_file mf 
+			    ON m.mv_Idx = mf.mv_Idx
+			ORDER BY hit_Cnt DESC
+			LIMIT 9
+		]]>
+	</select>
+	
+
+	<select id="getSelectCategoryMovies" parameterType="String" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				mvName,
+				mvPrice,
+				stored_File_Name
+			FROM
+				movie m
+				LEFT OUTER JOIN
+			    	mv_file mf 
+			    ON m.mv_Idx = mf.mv_Idx
+			WHERE m.mvcateCode = #{cateCode}  
+			ORDER BY hit_Cnt DESC
+		]]>
+	</select>
+	
+	
+	<select id="getMovieCategoryList" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				cateName,
+				cateCode
+			FROM
+				movie_category
+			WHERE
+				cateCode != "100";
+		]]>
+	</select>
+	
+
+	
+	
+</mapper>
