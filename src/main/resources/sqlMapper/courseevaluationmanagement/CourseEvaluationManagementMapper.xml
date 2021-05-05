@@ -38,7 +38,7 @@
 		<![CDATA[
 			 SELECT
 				c.COURSE_IDX,
-				COURSE_NAME,
+				c.COURSE_NAME,
 				COURSE_CATE_NAME,
 				c.COURSE_CODE,
 				PARTICI_NUM,
@@ -51,10 +51,10 @@
  		     LEFT OUTER JOIN
  		     	course_file cf 
  		     ON 
- 		     	c.mv_Idx = cf.mv_Idx
+ 		     	c.COURSE_IDX = cf.COURSE_IDX
  		     LEFT OUTER JOIN
  		     	course_category cc
- 		     ON c.mvCateCode = cc.CateCode
+ 		     ON c.COURSE_CODE = cc.COURSE_CODE
  		     	
 		]]>
 	</select>
