@@ -7,7 +7,7 @@
 		<![CDATA[
 			SELECT
 				COURSE_CODE,
-				COURSE_NAME,
+				COURSE_CATE_NAME,
 				COURSE_CODE_REF
 			FROM
 				course_category	
@@ -15,12 +15,12 @@
 	</select>
 	
 										 
-	<insert id="addMovie" parameterType="co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo" useGeneratedKeys="true" keyProperty="mv_Idx">
+	<insert id="addMovie" parameterType="co.kr.wdt.courseevaluationmanagement.vo.CourseVo" useGeneratedKeys="true" keyProperty="mv_Idx">
 		<![CDATA[
 			INSERT INTO 
 				course (
 					COURSE_NAME,
-					COURSE_CODE
+					COURSE_CODE,
 					PARTICI_NUM,
 					COURSE_DES,
 					REG_DATE
@@ -59,7 +59,7 @@
 		]]>
 	</select>
 	
-	<select id="findMovieOne" resultType="co.kr.wdt.courseevaluationmanagement.vo.CourseVo">
+	<select id="findMovieOne" resultType="paramMap">
 		<![CDATA[
 			 SELECT
 				c.COURSE_IDX,
@@ -89,7 +89,7 @@
 	<insert id="insertFile" parameterType="paramMap">
 		<![CDATA[
 			INSERT INTO 
-				mv_file ( 
+				course_file ( 
 					COURSE_IDX, 
 					COURSE_NAME,
 					ORIGINAL_FILE_NAME, 

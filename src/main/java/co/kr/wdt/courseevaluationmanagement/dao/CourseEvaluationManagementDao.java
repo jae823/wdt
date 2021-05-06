@@ -26,12 +26,12 @@ public class CourseEvaluationManagementDao extends CommonSqlDao2 {
 		return (int)insert(PREFIX + "addMovie", courseVo) == 1;
 	}
 	
-	public CourseVo findMovieOne(int courseIdx) {
-		return (CourseVo)selectOne(PREFIX + "findMovieOne", courseIdx);
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> findMovieOne(int courseIdx) {
+		return (Map<String, Object>) selectOne(PREFIX + "findMovieOne", courseIdx);
 	}
 
 	public void insertFile(Map<String, Object> map) {
 		insert(PREFIX + "insertFile", map);
 	}
-
 }

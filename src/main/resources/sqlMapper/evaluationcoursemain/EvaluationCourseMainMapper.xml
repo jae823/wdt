@@ -5,14 +5,15 @@
 	<select id="top9" resultType="paramMap" >
 		<![CDATA[
 			SELECT
-				COURSE_NAME,
+				c.COURSE_IDX,
+				c.COURSE_NAME,
 				PARTICI_NUM,
 				STORED_FILE_NAME
 			FROM
 				course c
 				LEFT OUTER JOIN
 			    	course_file cf 
-			    ON m.COURSE_IDX = cf.COURSE_IDX
+			    ON c.COURSE_IDX = cf.COURSE_IDX
 			ORDER BY HIT_CNT DESC
 			LIMIT 9
 		]]>
@@ -22,7 +23,8 @@
 	<select id="getSelectCategoryMovies" parameterType="String" resultType="paramMap" >
 		<![CDATA[
 			SELECT
-				COURSE_NAME,
+				c.COURSE_IDX,
+				c.COURSE_NAME,
 				PARTICI_NUM,
 				STORED_FILE_NAME
 			FROM
@@ -44,7 +46,7 @@
 			FROM
 				course_category
 			WHERE
-				COURSE_CODE != "100";
+				COURSE_CODE_REF IS NOT NULL;
 		]]>
 	</select>
 	

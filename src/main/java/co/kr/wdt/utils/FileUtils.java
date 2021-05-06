@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUtils { 
 	
 
-	private static final String filePath = "C:\\Users\\MyComputer\\eclipse-workspace-1week\\MovieWeb\\MovieReview\\src\\main\\webapp\\assets\\upload\\"; 
+	private static final String filePath = "C:\\Users\\MyComputer\\eclipse-workspace-1week\\bitsaltlux_semiproject-develop\\bitsaltlux_semiproject-develop\\src\\main\\webapp\\assets\\upload\\"; 
 
 
 	public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{ 
@@ -30,12 +30,11 @@ public class FileUtils {
 		MultipartFile multipartFile = null; 
 		String originalFileName = null;
 		String originalFileExtension = null;
-		String originalFileNameExcludedExtension = null;
 		String storedFileName = null;
-		String movieName = null;
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>(); 
 		Map<String, Object> listMap = null; 
-		String movieIdx = (String)map.get("IDX"); 
+		String courseIdx = (String)map.get("courseIdx");
+		String courseName = (String)map.get("courseName"); 
 		File file = new File(filePath); 
 		if(file.exists() == false){ 
 			file.mkdirs(); 
@@ -46,16 +45,15 @@ public class FileUtils {
 			if(multipartFile.isEmpty() == false){ 
 				originalFileName = multipartFile.getOriginalFilename(); 
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf(".")); 
-				originalFileNameExcludedExtension = originalFileName.substring(0, originalFileName.lastIndexOf("."));
 				storedFileName = uuid + originalFileExtension; 
 				file = new File(filePath + storedFileName); 
 				multipartFile.transferTo(file); 
 				listMap = new HashMap<String,Object>(); 
-				listMap.put("mv_Idx", movieIdx); 
-				listMap.put("movieName", originalFileNameExcludedExtension);
-				listMap.put("original_File_Name", originalFileName); 
-				listMap.put("stored_File_Name", storedFileName); 
-				listMap.put("file_Size", multipartFile.getSize()); 
+				listMap.put("courseIdx", courseIdx); 
+				listMap.put("courseName", courseName);
+				listMap.put("originalFileName", originalFileName); 
+				listMap.put("storedFileName", storedFileName); 
+				listMap.put("fileSize", multipartFile.getSize()); 
 				list.add(listMap); 
 			} 
 		} 

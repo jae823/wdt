@@ -14,12 +14,11 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 	private static String PRIFIX = "courseEvaluationBoard.";
 	
 	public List<CourseEvaluationBoardVo> findAll(Map<String, Object> param) {
-		System.out.println(selectList(PRIFIX + "findAll", param));
 		return selectList(PRIFIX + "findAll", param);
 	}
 
-	public int updateMovieHit_Cnt(String movieName) {
-		return (int) update(PRIFIX + "updateMovieHit_Cnt", movieName);
+	public int updateMovieHit_Cnt(int courseIdx) {
+		return (int) update(PRIFIX + "updateMovieHit_Cnt", courseIdx);
 	}
 	
 	public int findAllTotalCount(Map<String, Object> param) {
@@ -31,7 +30,7 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 	}
 	
 	public List<CourseEvaluationBoardVo> search(Map<String, Object> param) {
-		return selectList(PRIFIX + "board.search", param);
+		return selectList(PRIFIX + "search", param);
 	}
 	
 	public int searchTotalCount(Map<String, Object> param) {
@@ -40,6 +39,11 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 	
 	public int updateHit_Cnt(int mv_Idx) {
 		return (int) update(PRIFIX + "updateHit_Cnt", mv_Idx);
+	}
+	
+
+	public String getCourseName(int courseIdx) {
+		return (String) selectOne(PRIFIX + "search_courseName", courseIdx);
 	}
 	
 	public int insert(Map<String, Object> param) {
@@ -53,6 +57,7 @@ public class CourseEvaluationBoardDao extends CommonSqlDao2 {
 	public int update(CourseEvaluationBoardVo courseEvaluationBoradVo) {
 		return (int) update(PRIFIX + "update", courseEvaluationBoradVo);
 	}
+
 
 
 }

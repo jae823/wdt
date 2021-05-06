@@ -14,7 +14,7 @@ public interface CourseEvaluationManagementService {
 	
 	public boolean addMovie(CourseVo courseVo, HttpServletRequest request) throws Exception;
 	
-	public CourseVo getMovieDetail(int courseIdx);
+	public Map<String, Object> getMovieDetail(int courseIdx);
 
 	public List<Map<String, Object>> getMovie();
 }

@@ -32,7 +32,8 @@ public class CourseEvaluationManagementServiceImpl implements CourseEvaluationMa
 	public boolean addMovie(CourseVo courseVo, HttpServletRequest request) throws Exception {
 		Boolean result = courseEvaluationManagementDao.addMovie(courseVo); 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("IDX", String.valueOf(courseVo.getCourseIdx()));
+		map.put("courseIdx", String.valueOf(courseVo.getCourseIdx()));
+		map.put("courseName", String.valueOf(courseVo.getCourseName()));
 		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(map, request);
 		for(int i=0, size=list.size(); i<size; i++){ 
 			courseEvaluationManagementDao.insertFile(list.get(i)); 
@@ -41,7 +42,7 @@ public class CourseEvaluationManagementServiceImpl implements CourseEvaluationMa
 		return result;
 	}
 	
-	public CourseVo getMovieDetail(int courseIdx) {
+	public Map<String, Object> getMovieDetail(int courseIdx) {
 		return courseEvaluationManagementDao.findMovieOne(courseIdx);
 	}
 

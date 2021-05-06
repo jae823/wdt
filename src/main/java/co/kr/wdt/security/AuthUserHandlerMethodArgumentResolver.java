@@ -1,8 +1,5 @@
 package co.kr.wdt.security;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -33,14 +30,6 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 		if(session == null) {
 			return null;
 		}
-		
-		System.out.println(session.getAttribute("userNo"));
-		System.out.println(session.getAttribute("userId"));
-		System.out.println(session.getAttribute("userNm"));
-		System.out.println(session.getAttribute("userMajor"));
-		System.out.println(session.getAttribute("userSchool"));
-		System.out.println(session.getAttribute("userLevel"));
-		System.out.println(session.getAttribute("userPw"));
 		
 		userVo.setNo((int)session.getAttribute("userNo"));
 		userVo.setInputId((int)session.getAttribute("userId"));

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.wdt.courseevaluationmain.service.CourseEvaluationMainService;
-import co.kr.wdt.courseevaluationmanagement.service.CourseEvaluationManagementService;
 
-@Controller("/courseEvaluationMain")
+@Controller
+@RequestMapping("/courseEvaluationMain")
 public class CourseEvaluationMainController {
 	
 	@Autowired
@@ -18,21 +18,16 @@ public class CourseEvaluationMainController {
 	// Top9 Movie list 가져오기
 	@RequestMapping(value="/hotCourse.do")
 	public String index(Model model) {
-		
 		model.addAttribute("list", courseEvaluationMainService.getTop8());
 		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
-
 		return "hotcourse/hotcourse";
 	}
 	
 	// Side Tab 데이터 가져오기
 	@RequestMapping(value = "/{cateCode}.do")
 	public String getSelectCategoryMovies(Model model, @PathVariable("cateCode") String cateCode) {
-		
 		model.addAttribute("list", courseEvaluationMainService.getSelectCategoryMovies(cateCode));
 		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
-		model.addAttribute("categoryFlag", true);
-		
 		return "hotcourse/hotcourse";
 	}
 }

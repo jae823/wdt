@@ -23,7 +23,7 @@ public class CourseEvaluationBoardServiceImpl implements CourseEvaluationBoardSe
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		
-		param.put("courseName", courseEvaluationBoradVo.getCourseName());
+		param.put("courseIdx", courseEvaluationBoradVo.getCourseIdx());
 		int totalCount = courseEvaluationBoardDao.findAllTotalCount(param);
 		
 		PageVo pageVo = new PageVo(totalCount, 5, nowPage);
@@ -43,7 +43,7 @@ public class CourseEvaluationBoardServiceImpl implements CourseEvaluationBoardSe
 		Map<String, Object> param = new HashMap<String, Object>(); 
 		
 		param.put("searchText", "%"+search+"%");
-		param.put("courseName", courseEvaluationBoradVo.getCourseName());
+		param.put("courseIdx", courseEvaluationBoradVo.getCourseIdx());
 		int totalCount = courseEvaluationBoardDao.searchTotalCount(param);
 		PageVo pageVo = new PageVo(totalCount, 5, nowPage);
 		
@@ -57,13 +57,17 @@ public class CourseEvaluationBoardServiceImpl implements CourseEvaluationBoardSe
 		return result;
 	}
 	
-	public boolean updateMovieHit_Cnt(String movieName) {
-		return courseEvaluationBoardDao.updateMovieHit_Cnt(movieName) == 1;
+	public boolean updateMovieHit_Cnt(int courseIdx) {
+		return courseEvaluationBoardDao.updateMovieHit_Cnt(courseIdx) == 1;
 	}
 	
 	public CourseEvaluationBoardVo getDetail(int idx) {
 		courseEvaluationBoardDao.updateHit_Cnt(idx);
 		return courseEvaluationBoardDao.findOne(idx);
+	}
+	
+	public String getCourseName(int courseIdx) {
+		return courseEvaluationBoardDao.getCourseName(courseIdx);
 	}
 
 	public boolean write(Map<String, Object> param) {
@@ -77,6 +81,7 @@ public class CourseEvaluationBoardServiceImpl implements CourseEvaluationBoardSe
 	public boolean delete(int mv_Idx) {
 		return courseEvaluationBoardDao.delete(mv_Idx) == 1;
 	}
+
 
 
 

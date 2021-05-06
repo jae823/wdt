@@ -19,9 +19,9 @@
  		     WHERE
  		        DEL_GB = 'N' 
  		 ]]>		    
- 		 	<if test='courseName != null'>
+ 		 	<if test='courseIdx != null'>
  		     AND
- 		     	COURSE_NAME = #{courseName}
+ 		     	COURSE_IDX = #{courseIdx}
  		     </if>
  		  <![CDATA[ 
  		  	 ORDER BY REG_DATE DESC  
@@ -30,14 +30,14 @@
 		
 	</select>
 	
-	<update id="updateMovieHit_Cnt" parameterType="String">
+	<update id="updateMovieHit_Cnt" parameterType="_int">
 		<![CDATA[
 			 UPDATE
 				course
  		     SET
  		     	HIT_CNT = HIT_CNT + 1
  		     WHERE
- 		        COURSE_NAME = #{courseName}
+ 		        COURSE_IDX = #{courseIdx}
  		 ]]>		    
 	</update>
 	
@@ -50,9 +50,9 @@
  		     WHERE
  		        DEL_GB = 'N'
 		]]>
-	 	<if test='courseName != null'>
+	 	<if test='courseIdx != null'>
  		     AND
- 		     	COURSE_NAME = #{courseName}
+ 		     	COURSE_IDX = #{courseIdx}
 	     </if>
  	
 	</select>
@@ -99,9 +99,9 @@
  		     OR
 				CONTENT like #{searchText}
 		]]>
-		 	<if test='courseName != null'>
+	 		<if test='courseIdx != null'>
  		     AND
- 		     	COURSE_NAME = #{courseName}
+ 		     	COURSE_IDX = #{courseIdx}
  		     </if>
 	  <![CDATA[   
 			 LIMIT #{start} , #{end}
@@ -121,9 +121,9 @@
  		     AND
 				CONTENT like #{searchText}
 		]]>
-		 	<if test='courseName != null'>
+	 		<if test='courseIdx != null'>
  		     AND
- 		     	COURSE_NAME = #{courseName}
+ 		     	COURSE_IDX = #{courseIdx}
  		     </if>
 	</select>
 	
@@ -137,6 +137,17 @@
  		     	BOARD_IDX = #{boardIdx}
 		]]>
 	</update>
+	
+	<select id="search_courseName" parameterType="_int" resultType="String">
+		<![CDATA[
+			 SELECT
+				COURSE_NAME
+ 		     FROM
+ 		     	course
+ 		     WHERE
+ 		     	COURSE_IDX = #{courseIdx}
+		]]>
+	</select>
 
 	<insert id="insert" parameterType="paramMap" >
 		<![CDATA[

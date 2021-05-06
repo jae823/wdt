@@ -44,6 +44,11 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	
+	<!-- 업로드 설정 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver" >
+		<property name="maxUploadSize" value="10485760"></property>
+	</bean>
+	
     <!-- 파일업로드 bean -->
 	<bean class="java.lang.String" id="uploadPath">
 		<constructor-arg value="C:\Users\MyComputer\eclipse-workspace-1week\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MovieReview\resources"/>
@@ -69,6 +74,13 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/login/logOut.do"/>
 			<bean class="co.kr.wdt.security.LogoutInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/login/loginProc.do"/>
+			<mvc:exclude-mapping path="/login/logOut.do"/>
+			<bean class="co.kr.wdt.security.AuthInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

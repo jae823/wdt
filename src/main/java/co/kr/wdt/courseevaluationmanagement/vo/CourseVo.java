@@ -14,7 +14,6 @@ public class CourseVo {
 	private String originalFileName;	//	ORIGINAL_FILE_NAME
 	private String storedFileName;		//	STORED_FILE_NAME
 	
-	
 	public int getCourseIdx() {
 		return courseIdx;
 	}
@@ -72,9 +71,10 @@ public class CourseVo {
 	
 	@Override
 	public String toString() {
-		return "MovieVo [courseIdx=" + courseIdx + ", courseName=" + courseName + ", courseCode=" + courseCode
+		return "CourseVo [courseIdx=" + courseIdx + ", courseName=" + courseName + ", courseCode=" + courseCode
 				+ ", particiNum=" + particiNum + ", courseDes=" + courseDes + ", hitCnt=" + hitCnt + ", regDate="
 				+ regDate + ", originalFileName=" + originalFileName + ", storedFileName=" + storedFileName + "]";
 	}
+	
 
 }

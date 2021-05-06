@@ -21,7 +21,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
 		UserVo userVo = new UserVo();
 		LoginVo loginVo = new LoginVo();
 

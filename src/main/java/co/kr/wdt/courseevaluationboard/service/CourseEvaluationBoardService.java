@@ -10,10 +10,12 @@ public interface CourseEvaluationBoardService {
 	
 	public Map<String, Object> getSearchList(CourseEvaluationBoardVo CourseEvaluationBoradVo, int nowPage, String search);
 	
-	public boolean updateMovieHit_Cnt(String movieName);
+	public boolean updateMovieHit_Cnt(int courseIdx);
 	
 	public CourseEvaluationBoardVo getDetail(int idx);
 
+	public String getCourseName(int courseIdx);
+	
 	public boolean write(Map<String, Object> param);
 	
 	public boolean update(CourseEvaluationBoardVo CourseEvaluationBoradVo);

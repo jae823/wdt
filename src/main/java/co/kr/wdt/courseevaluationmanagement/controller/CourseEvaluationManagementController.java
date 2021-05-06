@@ -58,11 +58,10 @@ public class CourseEvaluationManagementController {
 	}
 	
 	// 등록영화 상세 조회
-	@RequestMapping(value = "/courseViewDetail/{mv_idx}.do")
-	public String view(Model model, @PathVariable("mv_idx") int mv_idx) throws Exception {
-		CourseVo courseVo = courseEvaluationManagementService.getMovieDetail(mv_idx);
+	@RequestMapping(value = "/courseViewDetail/{COURSE_IDX}.do")
+	public String view(Model model, @PathVariable("COURSE_IDX") int course_Idx) throws Exception {
 		model.addAttribute("categoryList", courseEvaluationMainService.getMovieCategoryList());
-		model.addAttribute("courseVo", courseVo);
+		model.addAttribute("courseVo", courseEvaluationManagementService.getMovieDetail(course_Idx));
 		
 		return "courseevaluationmanagement/getcourse";
 	}
